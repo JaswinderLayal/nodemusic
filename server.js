@@ -1,5 +1,9 @@
 ﻿var express = require('express');
-var url = "mongodb://JaswinderLayal:tr1g@b1t@ds041177.mongolab.com:41177/usersample";
+var url = "mongodb://pk:123123@ds041177.mongolab.com:41177/usersample";
+var options = {
+    server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
+    replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } }
+};
 var ejs = require("ejs");
 var app = express();
 var flash = require("connect-flash");
