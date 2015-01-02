@@ -17,6 +17,7 @@
             Artists List
         </div>
         <div class="panel-body">
+            <img ng-show="loadingArtists" src="images/image_784675.gif" style="width:40px;height:40px;display:block;margin:60px auto">
             <ul class="artists">
                 <li ng-repeat="artist in artists">
                     <img ng-src="{{artist.singerImage}}" style="width:180px;height:180px"/><a ng-click="AddingAlbum(artist)">{{artist.name}}</a><button ng-click="DeleteArtist(artist)" class="btn btn-danger btn-xs">Remove</button>

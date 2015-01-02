@@ -108,13 +108,13 @@
         });
         app.controller("AddAlbumCtrl", function ($scope, $http, $upload) {
             var imagepath = "images/artists/";
-
+            $scope.loadingArtists = "loading";
             $http.get('/admin/singers').success(function (data) {
                 data.forEach(function (artist) {
                     artist.singerImage = imagepath + artist.singerImage;
 
                 });
-
+                $scope.loadingArtists = null;
                 $scope.artists = data;
             });
 
@@ -157,7 +157,8 @@
             }
           
         });
-        app.controller("AddTrackCtrl", function ($scope, $http, $upload, $window,$interval,$rootScope) {
+        app.controller("AddTrackCtrl", function ($scope, $http, $upload, $window, $interval, $rootScope) {
+            $scope.loadingArtists = "loading";
             console.log($scope.$parent.$parent);
             var singerimgpath = "images/artists/";
             var imgpath = "images/albums/";
@@ -171,9 +172,9 @@
                         }
 
                     })
-                });;
+                });
                 $scope.artists = data;
-                console.log($scope.artists);
+                $scope.loadingArtists = null;
             });
 
             $scope.selectedArtist = null;
@@ -208,20 +209,24 @@
                 file.push($files[0]);
 
             }
+            $scope.addingSongs = null;
             $scope.InsertSongs = function (Track) {
                 var success = false;
                 console.log(file);
                 var newTrack = angular.copy(Track)
                 var tracks = newTrack.tracks;
                 console.log(newTrack);
+                $scope.addingSongs = "adding";
                 $upload.upload({
                     url: 'admin/addSongs',
                     data: newTrack,
                     file: file,
                 }).progress(function (evt) {
+
                     console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
                 }).success(function (data, status, headers, config) {
                     // file is uploaded successfully
+                    $scope.addingSongs = null;
                     success = true;
                     $scope.$parent.$parent.activeOption = "Add new Artist";
                     $rootScope.message = "Successfully added Songs";
