@@ -1,0 +1,101 @@
+﻿
+<div ng-controller="AlbumsCtrl">
+
+    <div class="albumsShow" ng-hide="selectedAlbum">
+        <div class="col-md-12" style="padding: 10px 0 0 0;">
+            <div class="col-md-3" style="float: right">
+                <a style="background-color: #B37400;color:white;padding: 5px 10px;
+margin-right: 5px;" class="btn btn-xs" ng-repeat="mode in screenModes" ng-bind-html="mode" ng-click="changeScreen($index)" ng-class="{'btn-primary':selectedMode==mode}"></a>
+
+            </div>
+        </div>
+        <div class="col-md-12" style="margin-top:10px">
+            <input type="search" name="albumSearch" placeholder="Search Albums" ng-model="query.title" style="float:right" />
+        </div>
+        <div ng-show="selectedMode==screenModes[0]" class="galleryView col-md-12">
+            <ul class="albumslist">
+                <li class="repeat-item" ng-repeat="album in albums|filter:query">
+                    <img ng-src="{{album.albumImage}}" class="trackimage" style="height: 100%; width: 100%;border-radius:50%" />
+                    <a style="display:block;text-align:center;color: #B37400;
+font-weight: bold;
+font-size: 19px;
+font-family: FontAwesome;" ng-click="showSongs(album)">{{album.title}}</a>
+                </li>
+            </ul>
+
+        </div>
+
+        <div ng-show="selectedMode==screenModes[1]" class="ListView col-md-12">
+            <ul class="list-view">
+                <li ng-repeat="album in albums|filter:query">
+                    <div style="padding: 15px; border: 1px solid #b6b1b1;background-color:white">
+                        <div style="display: inline-block; width: 300px">
+                            <img ng-src="{{album.albumImage}}" style="height: 200px; width: 200px" />
+
+                        </div>
+                        <div style="display: inline-block">
+
+                            <h3>Title :{{album.title}}</h3>
+                            <p>
+                                <span><strong>Release Date</strong>{{album.release}}</span><br />
+                                <span><strong>Label</strong>{{album.label}}</span><br />
+                                <span><strong>Producer</strong>{{album.Producer}}</span><br />
+                            </p>
+
+                        </div>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div ng-show="selectedAlbum" class="songsShow" style="margin-top: 15px;
+border: 1px solid rgba(182, 177, 177, 0.3);
+background-color: white;
+box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.87);">
+        <div style="overflow:hidden">
+            <div style="float:left;padding:15px">
+                <button style="border-radius:50%;" class="btn btn-sm" ng-click="backAlbums()"><i class="fa fa-arrow-left"></i></button>
+            </div>
+            <div style="padding: 15px;float:left;width:90%">
+
+                <div style="display: inline-block; width: 300px">
+                    <img ng-src="{{selectedAlbum.albumImage}}" style="transform: translateX(42px) translateY(-18px) rotate(4deg);-webkit-transform: translateX(42px) translateY(-18px) rotate(4deg);-moz-transform: translateX(42px) translateY(-18px) rotate(4deg);height: 150px; width: 150px" class="image-songs" />
+
+                </div>
+                <div style="display: inline-block">
+
+                    <h3>Title :{{selectedAlbum.title}}</h3>
+                    <p>
+                        <span><strong>Release Date</strong>&nbsp;{{selectedAlbum.release}}</span><br />
+                        <span><strong>Label</strong>&nbsp;{{selectedAlbum.label}}</span><br />
+                        <span><strong>Producer</strong>&nbsp;{{selectedAlbum.Producer}}</span><br />
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+        <table class="table">
+            <thead>
+                <tr><th>Track No</th><th>Track Name</th><th>Track Duration</th><th>Genre</th><th>Song</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="track in selectedAlbum.tracks">
+                    <td>{{$index+1}}</td>
+                    <td>{{track.songTitle}}</td>
+                    <td>{{track.trackLength}}</td>
+                    <td>{{track.genre}}</td>
+                    <td>
+                        <button ng-click="play(track)" style="border-radius:50%;"><i class="fa fa-play"></i></button>
+                    </td>
+                    <td><button ng-click="addPlayList(track)" ng-disabled="track.disable" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp;Playlist</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+	  header{
+	  width:100%;
+   	  overflow:hidden;
+	 
+	   }
+        section.logo{
+            width:30%;
+			float:left;
+           padding:500em;
+		   margin:-500em 
+        }
+		section.search{
+		  width:50%;
+		  float:left;
+		  padding:500em;
+		   margin:-500em 
+		}
+		section.login{
+		 width:20%;
+		  float:left;
+		  padding:500em;
+		   margin:-500em;
+		  
+		}
+		section.login ul{
+		padding:5px;
+        margin:0;
+		}
+		section.login ul li{
+		list-style:none;
+		padding:10px;
+		display:inline-block;
+		}
+
+		section.login > ul > li > a{
+		
+		padding:10px;
+		display:block;
+		background-color:blue;
+		color:white;
+		
+		}
+
+        nav{
+          margin:auto;
+			
+			
+        }
+		nav ul{
+		padding:0;
+		margin:0;
+		}
+		nav ul li{
+		display:inline-block;
+		list-style:none;
+
+		}
+		nav ul li a{
+		padding:15px;
+		display:block;
+		text-decoration:none;
+		}
+		#search{
+		width:60%;
+		padding:5px;
+		}
+		.button{
+		padding:5px 15px;
+		border:1px solid blue;
+		color:white;
+		}
+		
+    </style>
+</head>
+<body style="max-width:1024px;margin:auto;">
+    <header>
+	<div style="overflow:hidden">
+        <section class="logo"> 
+            <h1>Music Store</h1>
+        </section>
+		
+		<section class="search">
+		<div style="padding:25px 10px">
+		<input id="search" type="search" name="searchProducts"/>
+		<button class="button" type="button">Search</button>
+		</div>
+		
+		</section>
+		<section class="login">
+		
+		<ul>
+		<% if(user){ %>
+		<li><%=user.username %></li>
+		<% } else { %>
+		<li> <a>Login</a> </li>
+	  <li> <a>Sign Up</a> </li>
+
+	    <% } %>
+		</ul>
+
+		
+	
+		</section>
+		</div>
+        <nav>
+            <ul>
+                <li><a href="#">Electronics</a></li>
+                <li><a href="#">Men</a></li>
+                <li><a href="#">Women</a></li>
+                <li><a href="#">Kids</a></li>
+            </ul>
+        </nav>
+    </header>
+	<article ng-view>
+
+	</article>
+<script src="../public/Scripts/angular.js"></script>
+<script>
+    var app = angular.module("MasterModule", []);
+	app.config(function(){
+	
+	});
+</script>
+</body>
+</html>

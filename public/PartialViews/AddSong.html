@@ -1,0 +1,76 @@
+﻿<style>
+    .gallery {
+        padding: 0;
+    }
+
+        .gallery li {
+            list-style: none;
+            margin-left: 15px;
+            display: inline-block;
+        }
+
+            .gallery li a {
+                display: block;
+            }
+            .selectedItem{
+                border:1px solid blue;
+            }
+</style>
+<div ng-controller="AddTrackCtrl">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Artists List
+        </div>
+        <div class="panel-body">
+            <ul class="gallery">
+                <li ng-repeat="artist in artists" ng-class="{'selectedItem':selectedArtist==artist}">
+                    <img ng-src="{{artist.singerImage}}" style="width:180px;height:180px" /><a ng-click="ShowAlbums(artist)">{{artist.name}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div ng-show="Albums" class="panel panel-primary">
+        <div class="panel-heading">
+            Add Album
+        </div>
+        <div class="panel-body">
+            <ul class="gallery">
+                <li ng-repeat="album in Albums" ng-class="{'selectedItem':selectedAlbum==album}">
+                    <img ng-src="{{album.albumImage}}" style="width:180px;height:180px" />  <a ng-click="AddTrack(album)">{{album.title}}</a><button class="btn btn-danger" ng-click="deleteAlbum(album)">Delete Album</button>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+    <div ng-show="Track" class="panel panel-primary">
+        <div class="panel-heading">
+            Add Album
+        </div>
+        <div class="panel-body">
+            <form name="SongsForm">
+                <button class="btn btn-primary" ng-disabled="SongsForm.$invalid" ng-click="addSong()">Add New Song</button>
+            <table>
+                <thead><tr><th>Track no</th><th>Song Title</th><th>Track Length</th><th>Genre</th><th>Action</th></tr></thead>
+                <tbody>
+                    <tr ng-repeat="track in Track.tracks">
+                        <td><input ng-disabled="true" type="number" name="trackno" ng-model="track.trackNumber" required value="{{track.trackNumber}}" /></td>
+                        <td><input type="text" name="songtitle" ng-model="track.songTitle" required value="{{track.songTitle}}" /></td>
+                        <td><input type="text" name="tracklength" ng-model="track.trackLength" required value="{{track.trackLength}}" /></td>
+                        <td><input type="text" name="genre" ng-model="track.genre" required value="{{track.genre}}" /></td >
+                        <td><input ng-hide="track.song" type="file" name="file" ng-file-select="onFileSelect($files)" required /><button ng-show="track.song" ng-click="DeleteSong(track)">Delete</button></td>
+                </tbody>
+            </table>
+            <!--<div>
+                <add-track-button></add-track-button>
+                <div id="AddTracks"></div>
+                <input type="text" name="trackno" ng-model="Track.tracks[0].trackNumber" class="form-control" />
+            </div>-->
+                <button ng-disabled="SongsForm.$invalid" ng-click="InsertSongs(Track)" class="btn btn-primary">Add Songs</button>
+        </div>
+        </form>
+
+    </div>
+
+</div>

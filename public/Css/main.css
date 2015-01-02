@@ -1,0 +1,501 @@
+﻿
+        @font-face {
+            font-family: "lobster";
+            src: url("../font/Lobster-Regular.ttf");
+        }
+
+        .side-nav {
+            padding: 0;
+            background-color:transparent;
+        }
+
+            .side-nav li {
+                list-style: none;
+                height: 40px;
+                border: 1px solid #b6b1b1;
+                color: white;  
+                border-radius:10px;
+                margin-bottom:2px;
+            }
+
+            .side-nav > li > a {
+                text-decoration: none;
+                display: block;
+                height: 100%;
+                text-align: center;
+                color: #B37400;
+                padding: 10px 0;
+                  border-radius:10px;
+              
+            }
+
+                .side-nav > li > a:hover {
+                    background-color: #B37400;
+                    color: white;
+                }
+
+        h1 {
+            font-family: "lobster";
+        }
+        h3,strong{
+            font-family: "FontAwesome";
+        }
+        .albumslist {
+            padding: 0;
+        }
+
+        body {
+            overflow-x: hidden;
+            background:rgb(224, 212, 212) url("/images/Music0312.png");
+            background-position-x:-30px;
+           
+           background-size:100%;
+         
+        }
+
+        .albumslist li {
+            list-style: none;
+            width: 25%;
+            display: inline-block;
+            -webkit-box-sizing: padding-box;
+            padding: 25px;
+            height: 250px;
+        }
+
+            .albumslist li a {
+                display: block;
+            }
+
+        .list-view {
+            padding: 0;
+        }
+
+        .side-nav {
+            background-color: white;
+        }
+
+        .list-view li {
+            list-style: none;
+            margin-bottom: 10px;
+        }
+
+        .active-tab {
+            background-color: #B37400;
+            color: white !important;
+        }
+
+        .main-partial {
+            -webkit-transition: all 1s ease;
+            transition: all 1s ease;
+            -moz-transition: all 1s ease;
+            -webkit-transition: all 1s ease;
+            overflow: hidden;
+        }
+
+            .main-partial.ng-enter {
+                -webkit-animation: fadeIn 1s ease;
+                -moz-animation: fadeIn 1s ease;
+            }
+
+            .main-partial.ng-leave {
+                -webkit-transition: all 1s ease;
+                -moz-transition: all 1s ease;
+                -moz-animation: fadeIn 1s ease;
+                -webkit-animation: fadeOut 1s ease;
+            }
+
+        .trackimage {
+            border: 3px double rgb(219, 219, 219);
+            box-shadow: 0px 1px 20px 2px rgba(137, 123, 123, 0.94);
+
+        }
+        .logo{ 
+          
+            transition:all 1s linear;
+            -webkit-transition:all 1s linear;
+            animation:rotateLogo 50s infinite;
+              -webkit-transform:translate(360deg);
+            -webkit-animation:rotateLogo 50s infinite;
+        }
+        .image-songs{
+            box-shadow: 1px 4px 27px rgba(74, 61, 61, 0.39);
+border: 4px double rgba(181, 181, 181, 1);
+
+-webkit-backface-visibility: hidden;
+outline: 1px solid transparent;
+        }
+        p{
+            line-height:25px;
+        }
+       
+        @keyframes rotateLogo{
+             0%{
+                transform:rotate(0deg);
+            }
+             100%{
+                transform:rotate(360deg);
+            }
+        }
+        @-webkit-keyframes rotateLogo{
+            0%{
+                -webkit-transform:rotate(0deg);
+            }
+             100%{
+                -webkit-transform:rotate(360deg);
+            }
+        }
+        .albumsShow.ng-hide-add {
+            transition: all 1s ease;
+            -moz-transition: all 1s ease;
+            -webkit-transition: all 1s ease;
+            animation: myrotate 1s ease;
+            -moz-animation: myrotatemoz 1s ease;
+            -webkit-animation: myrotate 1s ease;
+        }
+
+        .albumsShow.ng-hide-remove {
+            transition: all 0.2s ease;
+            -moz-transition: all 0.2s ease;
+            -webkit-transition: all 0.2s ease;
+            animation: fadeInNew 0.2s ease;
+            -webkit-animation: fadeInNew 0.2s ease;
+            -moz-animation: fadeInNew 0.2s ease;
+        }
+
+        /*.songsShow.ng-hide-add {
+            transition: all 1s ease;
+            -moz-transition: all 1s ease;
+            -webkit-transition: all 1s ease;
+            animation: myrotate 1s ease;
+            -moz-animation: myrotate 1s ease;
+            -moz-transition: all 1s ease;
+        }*/
+
+        .galleryView.ng-hide-remove {
+            transition: all 1s ease;
+            -webkit-transition: all 1s ease;
+            -moz-transition: all 1s ease;
+            animation: myrotatex 1s ease;
+            -webkit-animation: myrotatex 1s ease;
+            -moz-animation: myrotatex 1s ease;
+        }
+
+        .repeat-item.ng-enter {
+            transition: all 1s ease;
+            -webkit-transition: all 1s ease;
+            -moz-transition: all 1s ease;
+            animation: fadeIn 1s ease;
+            -webkit-animation: fadeIn 1s ease;
+            -moz-animation: fadeIn 1s ease;
+        }
+
+        .repeat-item.ng-leave {
+            transition: all 0.5s ease;
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            animation: fadeInD 0.5s ease;
+            -webkit-animation: fadeInD 0.5s ease;
+            -moz-animation: fadeInD 0.5s ease;
+        }
+
+        .ListView.ng-hide-remove {
+            transition: all 1s ease;
+            -moz-transition: all 1s ease;
+            -webkit-transition: all 1s ease;
+            animation: myrotatexanti 1s ease;
+            -webkit-animation: myrotatexanti 1s ease;
+            -moz-animation: myrotatexanti 1s ease;
+        }
+
+        @-moz-keyframes myrotatemoz {
+            from {
+                -moz-transform: perspective(600px) rotate3d(0,1,0,180deg);
+            }
+
+            to {
+                -moz-transform: perspective(600px) rotate3d(0,1,0,180deg);
+            }
+        }
+
+        @keyframes myrotatex {
+            0% {
+                transform: rotate3d(0,1,0,180deg);
+                -webkit-transform: rotate3d(0,1,0,180deg);
+                -moz-transform: rotate3d(0,1,0,180deg);
+            }
+
+            100% {
+                -webkit-transform: perspective(600px) rotate3d(0,1,0,0deg);
+                transform: perspective(600px) rotate3d(0,1,0,0deg);
+                -moz-transform: perspective(600px) rotate3d(0,1,0,0deg);
+            }
+        }
+
+        @-webkit-keyframes myrotatex {
+            0% {
+                transform: perspective(600px) rotate3d(0,1,0,180deg);
+                -webkit-transform: perspective(600px) rotate3d(0,1,0,180deg);
+                -moz-transform: perspective(600px) rotate3d(0,1,0,180deg);
+            }
+
+            100% {
+                -webkit-transform: perspective(600px) rotate3d(0,1,0,0deg);
+                -moz-transform: perspective(600px) rotate3d(0,1,0,0deg);
+                transform: perspective(600px) rotate3d(0,1,0,0deg);
+            }
+        }
+
+        @-moz-keyframes myrotatex {
+            0% {
+                transform: perspective(600px) rotate3d(0,1,0,180deg);
+                -webkit-transform: perspective(600px) rotate3d(0,1,0,180deg);
+                -moz-transform: perspective(600px) rotate3d(0,1,0,180deg);
+            }
+
+            100% {
+                -webkit-transform: perspective(600px) rotate3d(0,1,0,0deg);
+                transform: perspective(600px) rotate3d(0,1,0,0deg);
+                -moz-transform: perspective(600px) rotate3d(0,1,0,0deg);
+            }
+        }
+
+
+        @keyframes myrotatexanti {
+            0% {
+                transform: perspective(600px) rotate3d(0,1,0,90deg);
+                -webkit-transform: perspective(600px) rotate3d(0,1,0,90deg);
+                -moz-transform: perspective(600px) rotate3d(0,1,0,90deg);
+            }
+
+            100% {
+                -webkit-transform: perspective(600px) rotate3d(0,1,0,0deg);
+                -moz-transform: perspective(600px) rotate3d(0,1,0,0deg);
+                transform: perspective(600px) rotate3d(0,1,0,0deg);
+            }
+        }
+
+        @-webkit-keyframes myrotatexanti {
+            0% {
+                transform: perspective(600px) rotate3d(0,1,0,180deg);
+                -webkit-transform: perspective(600px) rotate3d(0,1,0,180deg);
+                -moz-transform: perspective(600px) rotate3d(0,1,0,180deg);
+            }
+
+            100% {
+                -webkit-transform: perspective(600px) rotate3d(0,1,0,180deg);
+                -moz-transform: perspective(600px) rotate3d(0,1,0,180deg);
+                transform: perspective(600px) rotate3d(0,1,0,0deg);
+            }
+        }
+
+        @-moz-keyframes myrotatexanti {
+            0% {
+                transform: perspective(600px) rotate3d(0,1,0,180deg);
+                -webkit-transform: perspective(600px) rotate3d(0,1,0,180deg);
+                -moz-transform: perspective(600px) rotate3d(0,1,0,180deg);
+            }
+
+            100% {
+                transform: perspective(600px) rotate3d(0,1,0,0deg);
+                -webkit-transform: perspective(600px) rotate3d(0,1,0,180deg);
+                -moz-transform: perspective(600px) rotate3d(0,1,0,180deg);
+            }
+        }
+
+
+
+        @keyframes myrotate {
+            0% {
+                transform: perspective(600px) rotate3d(0,1,0,0);
+                -webkit-transform: perspective(600px) rotate3d(0,1,0,0);
+                -moz-transform: perspective(600px) rotate3d(0,1,0,0);
+            }
+
+            80% {
+                -webkit-transform: perspective(600px) rotate3d(0,1,0,180deg);
+                transform: perspective(600px) rotate3d(0,1,0,180deg);
+                -moz-transform: perspective(600px) rotate3d(0,1,0,180deg);
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @-webkit-keyframes myrotate {
+            0% {
+                transform: perspective(600px) rotate3d(0,1,0,0);
+                -webkit-transform: perspective(600px) rotate3d(0,1,0,0);
+                -moz-transform: perspective(600px) rotate3d(0,1,0,0);
+            }
+
+            80% {
+                -webkit-transform: perspective(600px) rotate3d(0,1,0,180deg);
+                transform: perspective(600px) rotate3d(0,1,0,180deg);
+                -moz-transform: perspective(600px) rotate3d(0,1,0,180deg);
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @-moz-keyframes myrotate {
+            0% {
+                -moz-transform: perspective(600px) rotate3d(0,1,0,0deg);
+            }
+
+            100% {
+                -moz-transform: perspective(600px) rotate3d(0,1,0,180deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                transform: translate(100%);
+            }
+
+            100% {
+                transform: translate(0%) rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes fadeIn {
+            0% {
+                transform:translate(100%);
+            }
+
+            100% {
+                transform:translate(0%) rotate(360deg);
+            }
+        }
+
+        @-moz-keyframes fadeIn {
+            0% {
+                transform:translate(100%);
+            }
+
+            100% {
+                transform: translate(0%) rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes fadeInNew {
+            0% {
+               opacity:0;
+            }
+
+            100% {
+                opacity:1;
+            }
+        }
+
+        @-moz-keyframes fadeInNew {
+             0% {
+               opacity:0;
+            }
+
+            100% {
+                opacity:1;
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @-webkit-keyframes fadeOut {
+            0% {
+                transform: translateY(0%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        @-moz-keyframes fadeOut {
+            0% {
+                transform: translateY(0%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+
+        /*.repeat-item.ng-enter,
+        .repeat-item.ng-leave {
+            -webkit-transition: 0.5s linear all;
+            transition: 0.5s linear all;
+        }*/
+        .repeat-item {
+            transition: all 1s ease-in-out;
+            -webkit-transition: all 1s ease-in-out;
+            -moz-transition: all 1s ease-in-out;
+            transform: translate(0);
+            -webkit-transform: translate(0);
+            -moz-transform: translate(0);
+        }
+
+        .head {
+            background-color: #B37400;
+        }
+
+      .genreSong.ng-hide-remove,.songsShow.ng-hide-remove,.ArtistSongs.ng-hide-remove {
+            -webkit-transition: all 1s ease;
+            -moz-transition: all 1s ease;
+            -webkit-animation: fadeInC 2s ease-in-out;
+            -moz-animation: fadeInC 2s ease-in-out;
+        }
+
+        @-webkit-keyframes fadeInC {
+            0% {
+                transform: translateY(100%);
+               
+            }
+
+            100% {
+                transform: translateY(0%);
+                
+            }
+        }
+
+        @-moz-keyframes fadeInC {
+            0% {
+                transform: translateY(100%);
+               
+            }
+
+            100% {
+                transform: translateY(0%);
+               
+            }
+        }
+
+        @-webkit-keyframes fadeInD {
+            0% {
+                -webkit-transform: scale(1);
+            }
+
+            100% {
+                -webkit-transform: scale(0);
+            }
+        }
+
+        @-moz-keyframes fadeInD {
+            from {
+            }
+
+            to {
+                -moz-transform: scale(0);
+            }
+        }
+  

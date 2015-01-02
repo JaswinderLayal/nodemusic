@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="container">
+   
+        <%  if(signupMessage!=null){     %>
+    <div class="alert alert-error">
+        <%= signupMessage    %>
+    </div>
+    <%  }  %>
+
+    <form method="post" action="/">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label>Username</label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-8">
+                <input type="text" name="username" placeholder="Enter UserName" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label>Password</label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-8">
+                <input type="password" name="password" placeholder="Enter Password" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+</body>
+</html>

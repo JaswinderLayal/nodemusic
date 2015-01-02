@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="adminMusicModule">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        nav ul {
+            padding: 0;
+            margin: 0;
+        }
+
+            nav ul li {
+                list-style: none;
+                padding: 15px 5px;
+            }
+         
+    </style>
+</head>
+<body ng-controller="MainController">
+    <div class="col-md-12">
+        <div class="col-md-3">
+            <nav>
+               
+                <a ng-repeat="option in options" class="btn btn-xs btn-default" ng-class="{btn-primary:option===activeOption}">{{option}}</a>
+              
+            </nav>
+        </div>
+        <div class="col-md-9">
+            <div ng-view></div>
+        </div>
+    </div>
+    <script src="../public/Scripts/angular.js"></script>
+    <script>
+        var app = angular.module("adminMusicModule", []);
+        app.controller("MainController", function ($scope) {
+            var options = ["Add new Artist", "Add New Album", "Add New Song"];
+            $scope.activeOption = options[0];
+        });
+    </script>
+</body>
+</html>

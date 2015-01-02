@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="MainPage">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .side-nav {
+            padding: 0;
+        }
+
+            .side-nav li {
+                list-style: none;
+                height: 40px;
+                background-color: darkorange;
+                color: white;
+            }
+
+                .side-nav > li  > a {
+                    text-decoration: none;
+                    display: block;
+                    height: 100%;
+                }
+                .side-nav > li > a:hover{
+                    background-color:burlywood;
+                    color:white;
+                }
+    </style>
+</head>
+<body ng-controller="MainPageCtrl">
+    <div class="col-md-12">
+        <div class="col-md-3">
+            <ul class="side-nav">
+                <li ng-repeat="option in options"><a>{{option}}</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <ul>
+                <li ng-repeat="album in albums">
+                    {{album}}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script src="../public/Scripts/angular.js"></script>
+    <script>
+        var app = angular.module("MainPage", []);
+        app.controller("MainPageCtrl", function ($scope, $http) {
+            var albums = [];
+            $http.get("/admin/singers").success(function (data) {
+                $scope.artists = data;
+                angular.forEach(data, function (artist) {
+                   albums=albums.concat(artist.albums)
+
+                });
+            });
+            $scope.options = ["All", "Artists"];
+            $scope.albums = albums;
+        });
+      
+    </script>
+</body>
+
+
+</html>

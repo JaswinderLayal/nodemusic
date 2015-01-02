@@ -1,0 +1,4 @@
+F:\Current\Basic NodeJs Template\NodejsWebApp3\obj\Debug\NodejsWebApp3.njsprojResolveAssemblyReference.cache
+F:\Current\Basic NodeJs Template\NodejsWebApp3\bin\Microsoft.NodejsTools.WebRole.dll
+F:\Current\NodeJs Final\NodejsWebApp3\obj\Debug\NodejsWebApp3.njsprojResolveAssemblyReference.cache
+F:\Current\NodeJs Final\NodejsWebApp3\bin\Microsoft.NodejsTools.WebRole.dll

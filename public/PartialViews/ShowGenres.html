@@ -1,0 +1,57 @@
+﻿<div ng-controller="GenresCtrl">
+
+    <div ng-hide="selectedGenre" class="col-md-12" style="margin-top:40px">
+        <input type="search" name="albumSearch" placeholder="Search Genres" ng-model="query" style="float:right" />
+    </div>
+    <div ng-hide="selectedGenre" class="genres albumsShow">
+        <ul class="albumslist">
+            <li class="repeat-item" ng-repeat="genre in genres|filter:query">
+                <img class="trackimage" src="Images/Music_Genre.jpg" style="height: 100%; width: 100%;border-radius:50%" />
+                <a style="display:block;text-align:center;color: #B37400;
+font-weight: bold;
+font-size: 19px;
+font-family: FontAwesome;" ng-click="selectGenre(genre)">{{genre}}</a>
+            </li>
+        </ul>
+    </div>
+
+    <div ng-show="selectedGenre" class="genreSong" style="margin-top: 15px;
+border: 1px solid rgba(182, 177, 177, 0.3);
+background-color: white;
+box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.87);">
+        <div>
+            <div style="float:left;padding:15px">
+                <button class="btn btn-sm" ng-click="backGenres()"><i class="fa fa-arrow-left"></i></button>
+            </div>
+            <div style="padding: 15px;float:left">
+                <div style="display: inline-block; width: 300px">
+                    <img src="Images/Music_Genre.jpg" class="image-songs" style="height: 150px; width: 150px" />
+
+                </div>
+                <div style="display: inline-block">
+
+                    <h3>Genre :{{selectedGenre}}</h3>
+
+
+                </div>
+
+            </div>
+
+        </div>
+        <table class="table">
+            <thead>
+                <tr><th>Track No</th><th>Track Name</th><th>Track Duration</th><th>Genre</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="track in tracks">
+                    <td>{{$index+1}}</td>
+                    <td>{{track.songTitle}}</td>
+                    <td>{{track.trackLength}}</td>
+                    <td>{{track.genre}}</td>
+                    <td><button style="border-radius:50%" ng-click="play(track)"><i class="fa fa-play"></i></button></td>
+                    <td><button ng-click="addPlayList(track)" ng-disabled="track.disable" class="btn btn-primary">Add Playlist</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

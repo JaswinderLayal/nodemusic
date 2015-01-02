@@ -1,0 +1,95 @@
+﻿<style>
+    .artists{
+        padding:0;
+    }
+    .artists li{
+        list-style:none;
+        margin-left:15px;
+        display:inline-block;
+    }
+    .artists li a{
+        display:block;
+    }
+</style>
+<div ng-controller="AddAlbumCtrl">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Artists List
+        </div>
+        <div class="panel-body">
+            <ul class="artists">
+                <li ng-repeat="artist in artists">
+                    <img ng-src="{{artist.singerImage}}" style="width:180px;height:180px"/><a ng-click="AddingAlbum(artist)">{{artist.name}}</a><button ng-click="DeleteArtist(artist)" class="btn btn-danger btn-xs">Remove</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+   
+    <div ng-show="Album" class="panel panel-primary">
+        <div class="panel-heading">
+            Add Album
+        </div>
+        <div class="panel-body">
+            <form name="AlbumForm">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <label>Artist Name</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="Album.name" name="artistName" ng-disabled="true" value="{{Album.name}}" />
+                    </div>
+                </div>
+                <div class="paddingdiv"></div>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <label>Album Name</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" ng-model="Album.new.title" class="form-control" name="title" required />
+                    </div>
+                </div>
+                <div class="paddingdiv"></div>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <label>Release Date</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" ng-model="Album.new.release" class="form-control" name="release" />
+                    </div>
+                </div>
+                <div class="paddingdiv"></div>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <label>label</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" ng-model="Album.new.label" class="form-control" name="label" />
+                    </div>
+                </div>
+                <div class="paddingdiv"></div>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <label>Producer</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" ng-model="Album.new.Producer" class="form-control" name="Producer" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <label>Upload Album Pic</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="file" ng-file-select="onFileSelect($files)" class="form-control" name="file" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <button ng-click="AddAlbum()" ng-disabled="AlbumForm.$invalid" class="btn btn-default">Add Album</button>
+                </div>
+
+            </form>
+        </div>
+        
+
+    </div>
+</div>

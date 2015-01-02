@@ -1,0 +1,57 @@
+﻿<h1>Search</h1>
+
+<div ng-controller="searchCtrl">
+    <button class="btn btn-default" ng-click="goBack()">Back</button>
+    <!--{{albums}}
+    {{artists}}-->
+    <ul ng-hide="selectedAlbum" class=" albumslist">
+        <li ng-repeat="album in albums">
+            <img ng-src="{{album.albumImage}}" style="height: 100%; width: 100%" />
+            <a ng-click="showSongs(album)">{{album.title}}</a>
+        </li>
+    </ul>
+    <ul class="albumslist">
+        <li ng-repeat="artist in artists">
+            <img ng-src="{{artist.singerImage}}" style="height: 100%; width: 100%" />
+            <a ng-click="">{{artist.name}}</a>
+        </li>
+    </ul>
+
+    <div ng-show="selectedAlbum" class="songsShow">
+        <div>
+            <button class="btn btn-sm" ng-click="backAlbums()">Back</button>
+            <div style="padding: 15px; border: 1px solid #b6b1b1">
+                <div style="display: inline-block; width: 300px">
+                    <img ng-src="{{selectedAlbum.albumImage}}" style="height: 150px; width: 150px" />
+
+                </div>
+                <div style="display: inline-block">
+
+                    <h3>Title :{{selectedAlbum.title}}</h3>
+                    <p>
+                        <span><strong>Release Date</strong>{{selectedAlbum.release}}</span><br />
+                        <span><strong>Label</strong>{{selectedAlbum.label}}</span><br />
+                        <span><strong>Producer</strong>{{selectedAlbum.Producer}}</span><br />
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+        <table class="table">
+            <thead>
+                <tr><th>Track No</th><th>Track Name</th><th>Track Duration</th><th>Genre</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="track in selectedAlbum.tracks">
+                    <td>{{$index+1}}</td>
+                    <td>{{track.songTitle}}</td>
+                    <td>{{track.trackLength}}</td>
+                    <td>{{track.genre}}</td>
+                    <td><button ng-click="addPlayList(track)" ng-disabled="track.disable" class="btn btn-primary">Add Playlist</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

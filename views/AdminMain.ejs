@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="adminMusicModule">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        nav ul {
+            padding: 0;
+            margin: 0;
+        }
+
+            nav ul li {
+                list-style: none;
+                padding: 15px 5px;
+            }
+    </style>
+    <!--<script type="text/ng-template" id="Tracktemp.html">
+        <div ng-controller="newTrackController">
+
+
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label>Track no</label>
+                </div>
+                <div class="col-md-8">
+                    {{SongNo}}
+                    count
+                    <input type="text" name="trackno" ng-click="showAlert()" ng-model="Track[{{SongNo}}].trackno" value="count" class="form-control" />
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label>Song Title</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="songTitle" ng-model="Track.songTitle" class="form-control" />
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label>Track Length</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="trackLength" ng-model="Track.trackLength" class="form-control" />
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label>Genre</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="genre" ng-model="Track.genre" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </script>-->
+</head>
+<body ng-controller="MainController">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <a href="/logout" class="btn btn-primary">Log Out</a>
+        </div>
+        <div style="position:absolute;top:0;right:0;width:400px" id="message" ng-show="message" class="alert alert-success">{{message}}</div>
+        <div class="col-md-3">
+            <nav>
+
+                <a ng-repeat="option in options" class="btn btn-xs btn-default btn-block" ng-class="{'btn-primary':option===activeOption}" ng-click="change($index)">{{option}}</a>
+
+            </nav>
+        </div>
+        <div class="col-md-9">
+            <div ng-include="getScreen()"></div>
+        </div>
+    </div>
+    <script src="scripts/angular-file-upload-shim.js"></script>
+    <script src="scripts/angular.js"></script>
+    <script src="scripts/angular-file-upload.js"></script>
+    <script>
+        var app = angular.module("adminMusicModule", ["angularFileUpload"]);
+        app.run(function ($rootScope) {
+            $rootScope.message = null;
+        });
+        app.controller("MainController", function ($scope) {
+            $scope.options = ["Add new Artist", "Add New Album", "Add New Song"];
+
+            $scope.activeOption = $scope.options[0];
+            $scope.change = function (index) {
+                $scope.activeOption = $scope.options[index];
+            }
+            $scope.getScreen = function () {
+                switch ($scope.activeOption) {
+                    case $scope.options[0]:
+                        return "../PartialViews/AddArtist.html";
+                        break;
+                    case $scope.options[1]:
+                        return "../PartialViews/Addalbum.html";
+                        break;
+                    case $scope.options[2]:
+                        return "../PartialViews/AddSong.html";
+                        break;
+                }
+            }
+        });
+        app.controller("AddAlbumCtrl", function ($scope, $http, $upload) {
+            var imagepath = "images/artists/";
+
+            $http.get('/admin/singers').success(function (data) {
+                data.forEach(function (artist) {
+                    artist.singerImage = imagepath + artist.singerImage;
+
+                });
+
+                $scope.artists = data;
+            });
+
+            $scope.Album = null;
+            $scope.AddingAlbum = function (artistobj) {
+                console.log(artistobj);
+                $scope.Album = artistobj;
+            }
+            var file = null;
+            $scope.onFileSelect = function ($files) {
+
+                file = $files[0];
+
+            }
+            $scope.AddAlbum = function () {
+                var albumArray = $scope.Album.albums;
+                $scope.Album.albums.push($scope.Album.new);
+                delete $scope.Album.new;
+                console.log($scope.Album);
+                //$http.post("/admin/addAlbum", { data: $scope.Album }).success(function (data) {
+                //});
+                $upload.upload({
+                    url: '/admin/addAlbum',
+                    data: $scope.Album,
+                    file: file,
+                }).progress(function (evt) {
+                    console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+                }).success(function (data, status, headers, config) {
+                    // file is uploaded successfully
+                    console.log(data);
+                });
+                console.log($scope.Album);
+
+            }
+            $scope.DeleteArtist = function (artist) {
+                $http.post('/admin/deleteArtist/' + artist._id).success(function (data) {
+                    $scope.artists.splice($scope.artists.indexOf(artist), 1);
+                    $scope.Album = null;
+                });
+            }
+          
+        });
+        app.controller("AddTrackCtrl", function ($scope, $http, $upload, $window,$interval,$rootScope) {
+            console.log($scope.$parent.$parent);
+            var singerimgpath = "images/artists/";
+            var imgpath = "images/albums/";
+            $http.get('/admin/singers').success(function (data) {
+                data.forEach(function (artist) {
+                    artist.singerImage = singerimgpath + artist.singerImage;
+                    angular.forEach(artist.albums, function (album) {
+
+                        if (album.albumImage != null) {
+                            album.albumImage = imgpath + album.albumImage;
+                        }
+
+                    })
+                });;
+                $scope.artists = data;
+                console.log($scope.artists);
+            });
+
+            $scope.selectedArtist = null;
+            $scope.Albums = null;
+            $scope.SongNo = 0;
+            $scope.selectedAlbum = null;
+            $scope.ShowAlbums = function (artist) {
+
+                $scope.Albums = artist.albums;
+                $scope.Track = null;
+                $scope.selectedArtist = artist;
+            }
+            $scope.Track = null;
+
+            $scope.addSong = function () {
+                
+                $scope.Track.tracks.push({
+                    trackNumber: $scope.Track.tracks.length+1,
+                    songTitle: "",
+                    trackLength: "",
+                    genre: ""
+                });
+            }
+            $scope.AddTrack = function (album) {
+                $scope.selectedAlbum = album;
+                $scope.Track = album;
+
+            }
+            var file = [];
+            $scope.onFileSelect = function ($files) {
+
+                file.push($files[0]);
+
+            }
+            $scope.InsertSongs = function (Track) {
+                var success = false;
+                console.log(file);
+                var newTrack = angular.copy(Track)
+                var tracks = newTrack.tracks;
+                console.log(newTrack);
+                $upload.upload({
+                    url: 'admin/addSongs',
+                    data: newTrack,
+                    file: file,
+                }).progress(function (evt) {
+                    console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+                }).success(function (data, status, headers, config) {
+                    // file is uploaded successfully
+                    success = true;
+                    $scope.$parent.$parent.activeOption = "Add new Artist";
+                    $rootScope.message = "Successfully added Songs";
+                    $interval(function () {
+                        $rootScope.message = null;
+                    }, 2000);
+                    //$window.location.href = "/adminmain";
+                });
+              //  
+                if (success) {
+                    console.log(success);
+                   
+                }
+
+                //$http.post("admin/addSongs", { data: newTrack }).success(function (data) {
+
+                //});
+
+            }
+            $scope.deleteAlbum = function (album) {
+                $http.post('/admin/deleteAlbum/' + album._id).success(function (data) {
+                    $scope.Albums.splice($scope.Albums.indexOf(album), 1);
+                });
+            }
+            $scope.DeleteSong = function (track) {
+                $http.post('/admin/deleteTrack/'+track._id).success(function (data) {
+                    $scope.Track.tracks.splice($scope.Track.tracks.indexOf(track), 1);
+                });
+            }
+        });
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>NodejsWebApp3</Name>
+    <RootNamespace>NodejsWebApp3</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>efca191b-f198-4b1a-9866-57db8002891d</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>server.js</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <ProjectView>ProjectFiles</ProjectView>
+    <NodejsPort>1337</NodejsPort>
+    <StartWebBrowser>true</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="config\database.js" />
+    <Compile Include="config\Passport.js" />
+    <Compile Include="JavaScript1.js" />
+    <Compile Include="public\Scripts\angular-sanitize.js" />
+    <Compile Include="public\Scripts\jquery.jplayer.min.js" />
+    <Compile Include="public\Directives\Admin.js" />
+    <Compile Include="public\Controllers\AdminMain.js" />
+    <Compile Include="public\PartialViews\AddSong.html" />
+    <Compile Include="public\PartialViews\trackdirective.html" />
+    <Compile Include="public\Scripts\angular-animate.js" />
+    <Compile Include="public\Scripts\angular-file-upload-shim.js" />
+    <Compile Include="public\Scripts\angular-file-upload.js" />
+    <Compile Include="public\Scripts\angular-route.js" />
+    <Compile Include="public\Scripts\angular.js" />
+    <Compile Include="public\Scripts\jquery-1.11.2.min.js" />
+    <Compile Include="public\Scripts\MainController.js" />
+    <Compile Include="public\Scripts\prefixfree.dynamic-dom.js" />
+    <Compile Include="public\Scripts\prefixfree.js" />
+    <Compile Include="server.js" />
+    <Content Include="Index.html" />
+    <Content Include="package.json" />
+    <Content Include="public\Css\font-awesome.css" />
+    <Content Include="public\Css\jplayer.blue.monday.css" />
+    <Content Include="public\Css\main.css" />
+    <Content Include="public\font\fontawesome-webfont.eot" />
+    <Content Include="public\font\fontawesome-webfont.svg" />
+    <Content Include="public\font\fontawesome-webfont.ttf" />
+    <Content Include="public\font\fontawesome-webfont.woff" />
+    <Content Include="public\font\FontAwesome.otf" />
+    <Content Include="public\font\JosefinSlab-Italic.ttf" />
+    <Content Include="public\font\Lobster-Regular.ttf" />
+    <Content Include="public\Images\06.jpg" />
+    <Content Include="public\Images\10.jpg" />
+    <Content Include="public\Images\15.jpg" />
+    <Content Include="public\Images\19.jpg" />
+    <Content Include="public\Images\484431897.jpg" />
+    <Content Include="public\Images\63bc-vector-colorful-music-background-vector-127761566.jpg" />
+    <Content Include="public\Images\b_1283231078259.jpg" />
+    <Content Include="public\Images\depositphotos_40134887-Abstract-Music-notes-seamless-pattern.-Vector-background-wallpaper.-Illustration-for-your-design.jpg" />
+    <Content Include="public\Images\dT7z99ync.gif" />
+    <Content Include="public\Images\jplayer.blue.monday.jpg" />
+    <Content Include="public\Images\Music.jpg" />
+    <Content Include="public\Images\music.png" />
+    <Content Include="public\Images\Music03.jpg" />
+    <Content Include="public\Images\Music0312.png" />
+    <Content Include="public\Images\Music2.png" />
+    <Content Include="public\Images\Music_Genre.jpg" />
+    <Content Include="public\Images\pv_590.jpg" />
+    <Content Include="public\Images\Songs\jas.ogg" />
+    <Content Include="public\Images\stock-illustration-23486869-abstract-music-seamless-pattern-background-vector-illustration-for-your-design.jpg" />
+    <Content Include="public\Images\stock-vector-musical-notes-staff-background-on-white-vector-illustration-110515475.jpg" />
+    <Content Include="public\Images\stock-vector-seamless-jazz-music-instrument-illustration-background-pattern-in-vector-140116849.jpg" />
+    <Content Include="public\Images\symphony.png" />
+    <Content Include="public\Images\Untitled-1 - Copy.png" />
+    <Content Include="public\Images\Untitled-1.png" />
+    <Content Include="public\PartialViews\AddAlbum.html" />
+    <Content Include="public\PartialViews\AddArtist.html" />
+    <Content Include="public\PartialViews\AlbumsShow.html" />
+    <Content Include="public\PartialViews\ArtistsShow.html" />
+    <Content Include="public\PartialViews\Jplayer.html" />
+    <Content Include="public\PartialViews\playlist.html" />
+    <Content Include="public\PartialViews\SearchResults.html" />
+    <Content Include="public\PartialViews\ShowGenres.html" />
+    <Content Include="README.md" />
+    <Content Include="views\AdminMain.ejs" />
+    <Content Include="views\Admin.ejs" />
+    <Content Include="views\Admin.html" />
+    <Content Include="views\Login.ejs" />
+    <Content Include="views\MainPage.ejs" />
+    <Content Include="views\MainPage.html" />
+    <Content Include="views\MusicRepository.html" />
+    <Content Include="views\signup.ejs" />
+    <Content Include="views\HTML1.html" />
+    <Content Include="views\Main.html" />
+    <Content Include="views\Master.ejs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="config\" />
+    <Folder Include="public\Directives\" />
+    <Folder Include="public\Controllers\" />
+    <Folder Include="public\Images\" />
+    <Folder Include="public\Images\Artists\" />
+    <Folder Include="public\Images\Albums\" />
+    <Folder Include="public\Images\Songs\" />
+    <Folder Include="public\font\" />
+    <Folder Include="public\Css\" />
+    <Folder Include="public\PartialViews\" />
+    <Folder Include="public\Scripts\" />
+    <Folder Include="views\" />
+    <Folder Include="public\" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

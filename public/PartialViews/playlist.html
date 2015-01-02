@@ -1,0 +1,47 @@
+﻿<div id="playList" style="box-shadow: 1px 2px 5px black;background-color:crimson;color:white;border-radius:50%;width:120px;height:120px;float:left;position:relative;margin:8px">
+    <span style="position: absolute;
+top: 24px;
+left: 50px;
+font-weight: bold;
+font-size: 36px;">{{SongsCount()}}</span>
+    <span style="position: absolute;
+top: 70px;
+left: 30px;
+font-weight: bold;
+font-size: 18px;">PlayList</span>
+</div>
+
+
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">My PlayList</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr><th>Song Title</th><th>Duration</th><th>Genre</th><th>Action</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="song in playListSongs">
+                            <td>{{song.songTitle}}</td>
+                            <td>{{song.trackLength}}</td>
+                            <td>{{song.genre}}</td>
+                            <td><button class="btn btn-xs btn-success" ng-click="playSong(song)">Play</button></td>
+                            <td><button class="btn btn-xs btn-danger" ng-click="remove(song)">Remove</button></td>
+                        </tr>
+                        <tr ng-show="playListSongs.length==0"><td colspan="3" style="text-align:center">No Songs in PlayList</td></tr>
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../Scripts/jquery-1.11.2.min.js"></script>

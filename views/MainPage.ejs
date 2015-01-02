@@ -1,0 +1,413 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="MainPage">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/jplayer.blue.monday.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
+    <link href="css/font-awesome.css" rel="stylesheet" />
+</head>
+<body ng-controller="MainPageCtrl">
+
+    <div class="col-md-12 head" style="height: 150px">
+
+        <div class="col-md-4">
+            <img class="logo" src="images/Music2.png" style="width: 299px;
+margin-top: -43px;
+height: 100%;" />
+        </div>
+        <div class="col-md-4">
+            <h1 style="color: white; text-shadow: 0px 1px 5px #000000; text-align: center; font-size: 46px;">Music Store</h1>
+            <div class="col-md-7" style="padding: 24px 0px;">
+                <input type="search" ng-model="Search" class="form-control" placeholder="search" />
+            </div>
+            <div class="col-md-2" style="padding:24px 0px;">
+                <button ng-click="GoSearch()" style="padding: 5px 12px;" class="btn btn-prmary"><i style="font-size:20px" class="fa fa-search"></i></button>
+            </div>
+            <div class="col-md-3" style="padding: 25px 5px">
+                <select name="opt" class="form-control" ng-model="selected" ng-options="list as list.label for list in searchList track by list.id"></select>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 25px 0">
+            <div style="float:right;margin-top:-22px">
+                <play-list></play-list>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-3" style="margin-top: 100px;">
+            <ul class="side-nav">
+                <li ng-repeat="option in options"><a ng-class="{'active-tab':selectedCategory==option}" ng-click="selectCategory(option)">{{option}}</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+
+
+            <div class="main-partial" ng-animate="{enter: 'enter', leave: 'leave'}" ng-include="getScreen()"></div>
+        </div>
+    </div>
+
+    <div ng-show="audio1" style="position:fixed;bottom:0;left:0">
+        <div id="playerWrapper" style="float:left">
+            <jplayer data-audio="{{audio1}}"></jplayer>
+        </div>
+
+        <button id="hidePlayer" style="height:140px">></button>
+
+    </div>
+
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-animate.js"></script>
+    <script src="Scripts/jquery-1.11.2.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="Scripts/jquery.jplayer.min.js"></script>
+    <script src="Scripts/angular-sanitize.js"></script>
+
+
+    <script>
+        var app = angular.module("MainPage", ["ngAnimate","ngSanitize"]);
+        app.run(function ($rootScope) {
+            $rootScope.audio1=null;
+        });
+        app.factory("SongsFactory", function ($http) {
+            var playList = [];
+            return {
+
+                searchUrl: null,
+                getSingers: function () {
+                    return $http.get("/admin/singers");
+                },
+                getGenres: function () {
+                    return $http.get("/main/genres");
+                },
+                addPlayListSong: function (song) {
+                    if (playList.indexOf(song) < 0) {
+                        playList.push(song);
+                    }
+
+                },
+                removeSong: function (song) {
+                    var itemIndex = playList.indexOf(song);
+                    playList.splice(itemIndex, 1);
+                },
+                getPlayList: function () {
+                    return playList;
+                }
+            }
+        });
+        app.controller("MainPageCtrl", function ($scope, $http, SongsFactory) {
+
+
+            $scope.options = ["Albums", "Artists", "Genre"];
+            $scope.selectedCategory = $scope.options[0];
+            $scope.searchList = [{
+                id: "0",
+                label: "Albums"
+            }, {
+                id: "1",
+                label: "Artists"
+
+            }];
+
+            $scope.selected = $scope.searchList[0];
+
+            $scope.GoSearch = function () {
+                $scope.selectedCategory = "search";
+                var url = "";
+                console.log($scope.selected);
+                switch ($scope.selected) {
+                    case $scope.searchList[0]:
+                        url = "/search/album/" + $scope.Search;
+                        break;
+                    case $scope.searchList[1]:
+                        url = "/search/artist/" + $scope.Search;
+                        break;
+                }
+                SongsFactory.searchUrl = url;
+                console.log(url);
+            }
+
+
+
+            $scope.getScreen = function () {
+                switch ($scope.selectedCategory) {
+                    case $scope.options[0]:
+                        return "PartialViews/AlbumsShow.html";
+                        break;
+                    case $scope.options[1]:
+                        return "PartialViews/ArtistsShow.html";
+                        break;
+                    case $scope.options[2]:
+                        return "PartialViews/ShowGenres.html";
+                        break;
+                    case "search":
+                        return "PartialViews/SearchResults.html";
+                        break;
+                    default:
+                        return "PartialViews/AlbumsShow.html";
+                }
+            }
+            $scope.selectCategory = function (category) {
+                $scope.selectedCategory = category;
+            }
+        });
+        app.controller("AlbumsCtrl", function ($scope, SongsFactory,$rootScope) {
+            $scope.screenModes = ["<i class='fa fa-2x fa-th-large'></i>","<i class='fa fa-2x fa-list'></i>"];
+            $scope.selectedMode = $scope.screenModes[0];
+            var albumImagePath = "images/albums/";
+            var trackpath = "images/songs/";
+            SongsFactory.getSingers().success(function (data) {
+                console.log(data);
+                $scope.artists = data;
+                angular.forEach(data, function (artist) {
+                    $scope.albums = $scope.albums.concat(artist.albums)
+
+                });
+                angular.forEach($scope.albums, function (album) {
+                    album.albumImage = albumImagePath + album.albumImage;
+                    album.tracks.forEach(function (track) {
+                        track.song = trackpath + track.song;
+                    });
+                });
+
+            });
+            $scope.addPlayList = function (song) {
+
+                SongsFactory.addPlayListSong(song);
+
+            }
+            $scope.play = function (song) {
+                $rootScope.audio1=song;
+
+
+            }
+
+            $scope.albums = [];
+            $scope.changeScreen = function (index) {
+                $scope.selectedMode = $scope.screenModes[index];
+            }
+            $scope.selectedAlbum = null;
+            $scope.showSongs = function (album) {
+                console.log(album);
+                $scope.selectedAlbum = album;
+            }
+            $scope.backAlbums = function () {
+                $scope.selectedAlbum = null;
+            }
+
+
+        });
+
+        app.controller("ArtistsCtrl", function ($scope, SongsFactory,$rootScope) {
+            var artistImagePath = "images/artists/";
+             var trackpath = "images/songs/";
+            SongsFactory.getSingers().success(function (data) {
+                angular.forEach(data, function (artist) {
+                    artist.singerImage = artistImagePath + artist.singerImage;
+                });
+                $scope.artists = data;
+                $scope.Artist = null;
+                $scope.showSongs = function (artist) {
+                    console.log(artist);
+                    var artistSongs = [];
+                    angular.forEach(artist.albums, function (album) {
+
+                          album.tracks.forEach(function (track) {
+                        track.song = trackpath + track.song;
+                    });
+                        artistSongs = artistSongs.concat(album.tracks);
+                    });
+                    artist.allTracks = artistSongs;
+                    $scope.Artist = artist;
+
+                }
+                $scope.backToArtist = function () {
+                    $scope.Artist = null;
+                }
+                $scope.addPlayList = function (song) {
+
+                    SongsFactory.addPlayListSong(song);
+
+                }
+                  $scope.play = function (song) {
+                $rootScope.audio1=song;
+
+
+            }
+
+            });
+        });
+
+        app.controller("GenresCtrl", function ($scope, SongsFactory, $http,$rootScope) {
+            SongsFactory.getGenres().success(function (data) {
+                $scope.genres = data;
+            });
+            $scope.selectedGenre = null;
+            var trackpath = "images/songs/";
+            $scope.selectGenre = function (genre) {
+                console.log(genre);
+                $scope.selectedGenre = genre;
+                $http.get("/main/genresongss/" + genre).success(function (data) {
+                    angular.forEach(data, function (track) {
+                        track.song=trackpath+track.song;
+                    });
+                    $scope.tracks = data;
+                    console.log($scope.tracks);
+                });
+            }
+            $scope.backGenres = function () {
+
+                console.log("Selected Category" + $scope.$parent.$parent.selectedCategory);
+                $scope.$parent.$parent.selectedCategory = $scope.options[0];
+                $scope.selectedGenre = null;
+            }
+            $scope.addPlayList = function (song) {
+
+                SongsFactory.addPlayListSong(song);
+
+            }
+                $scope.play = function (song) {
+                $rootScope.audio1=song;
+
+
+            }
+        });
+        app.controller("searchCtrl", function ($scope, SongsFactory, $http) {
+            var srchArry = SongsFactory.searchUrl.split("/");
+            srchArry.pop();
+            console.log(srchArry.join("/"));
+            //switch (srchArry.join("/")) {
+            //    case "/search/artist/":
+
+            //}
+            var albumImagePath = "images/albums/";
+            var artistImagePath = "images/artists/";
+            $http.get(SongsFactory.searchUrl).success(function (data) {
+                console.log(data);
+                switch (srchArry.join("/")) {
+                    case "/search/album":
+                        angular.forEach(data, function (album) {
+                            album.albumImage = albumImagePath + album.albumImage;
+                        });
+                        $scope.albums = data;
+                        break;
+                    case "/search/artist":
+                        angular.forEach(data, function (album) {
+                            album.singerImage = artistImagePath + album.singerImage;
+                        });
+                        $scope.artists = data;
+                        break;
+                }
+
+            });
+            $scope.goBack = function () {
+                $scope.$parent.$parent.selectedCategory = null;
+            }
+            $scope.selectedAlbum = null;
+            $scope.showSongs = function (album) {
+                console.log(album);
+                $scope.selectedAlbum = album;
+            }
+            $scope.backAlbums = function () {
+                $scope.selectedAlbum = null;
+            }
+        });
+        app.directive("playList", function (SongsFactory,$rootScope) {
+            return {
+                restrict: 'E',
+                templateUrl: "PartialViews/playlist.html",
+                controller: function ($scope) {
+
+
+                    $scope.SongsCount = function () {
+                        return SongsFactory.getPlayList().length;
+                    }
+                    $scope.playListSongs = SongsFactory.getPlayList();
+                    $scope.remove = function (song) {
+                        console.log(song);
+                        SongsFactory.removeSong(song);
+                    }
+                    $scope.playSong = function (song) {
+                        console.log("Song");
+                        $rootScope.audio1=song;
+                    }
+
+                },
+                link: function (scope, elem, attr, ctrl) {
+                    $(elem[0].children[0]).bind('click', function () {
+                        $("#myModal").modal("show");
+                    });
+                    $(elem[0].children[0]).bind('mouseover', function () {
+                        $(this).css({"-webkit-transform":"rotate(360deg)","transition":"all 1s ease"});
+                    });
+                    $(elem[0].children[0]).bind('mouseout', function () {
+                        $(this).css({ "-webkit-transform": "rotate(360deg)", "transition": "all 1s ease" });
+                    });
+                }
+            }
+        });
+        app.directive("jplayer", function ($rootScope) {
+
+                 return {
+        restrict: 'EA',
+        templateUrl:"PartialViews/Jplayer.html",
+        link: function(scope, element, attrs) {
+          attrs.$observe('audio', function(newValue, oldValue) {
+              var obj=JSON.parse(newValue);
+              console.log(obj.song);
+              $("#jquery_jplayer_1").jPlayer("destroy");
+          var UpdatePlayer= $("#jquery_jplayer_1").jPlayer({
+		ready: function (event) {
+			$(this).jPlayer("setMedia", {
+				title:obj.songTitle,
+				m4a: obj.song,
+				oga: obj.song
+			}).jPlayer("play");
+		},
+		swfPath: "../../dist/jplayer",
+		supplied: "m4a, oga",
+		wmode: "window",
+		useStateClassSkin: true,
+		autoBlur: false,
+		smoothPlayBar: true,
+		keyEnabled: true,
+		remainingDuration: true,
+		toggleDuration: true,
+               size: {
+                         width: "100%",
+                         height: "30px"
+                    }
+	})
+
+           });
+
+            }
+    }
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("body,html").css("min-height",window.screen.height);
+          var i=0;
+           $("#hidePlayer").click(function(){
+               if (i == 0) {
+                 $("#playerWrapper").animate({marginLeft:"-480px"},800);
+                   i=1;
+               }
+               else {
+                    $("#playerWrapper").animate({marginLeft:"0px"},800);
+                   i=0;
+               }
+
+
+    });
+        });
+    </script>
+</body>
+
+
+</html>
